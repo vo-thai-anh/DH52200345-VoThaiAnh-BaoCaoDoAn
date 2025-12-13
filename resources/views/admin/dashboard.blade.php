@@ -31,7 +31,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 1 1 0 000 2.002H6a1 1 0 000 2.002h2a1 1 0 000 2.002h2a1 1 0 000 2.002h2a1 1 0 000 2.002h2a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V7a2 2 0 012-2zm2 2a1 1 0 00-1 1v4a1 1 0 002 0V8a1 1 0 00-1-1zm4 0a1 1 0 00-1 1v4a1 1 0 002 0V8a1 1 0 00-1-1zm4 0a1 1 0 00-1 1v4a1 1 0 002 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
                 Quản lý Đơn hàng
             </a>
-            <a href="#" class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition duration-200">
+            <a href="{{ route('admin.products.indexUser') }}" class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zm-7 9a1 1 0 100-2 1 1 0 000 2zm7 0a1 1 0 100-2 1 1 0 000 2zm-5 0a1 1 0 100-2 1 1 0 000 2z"/><path d="M14 19a1 1 0 01-1 1H7a1 1 0 01-1-1v-2a1 1 0 011-1h6a1 1 0 011 1v2z"/></svg>
                 Quản lý tài khoản
             </a>

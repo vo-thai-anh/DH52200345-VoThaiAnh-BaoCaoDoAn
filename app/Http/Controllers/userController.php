@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class userController extends Controller
 {
@@ -20,6 +22,13 @@ class userController extends Controller
 
 // Thay 1 bằng ID của tài khoản đang gặp lỗi
 
+    public function indexUser(){
+        $user = DB::table('users')
+            ->select('user_id','username','email','role')
+            ->orderBy('user_id','desc')
+            ->paginate(10);
+            return view('admin.indexUser',compact('user'));
+    }
     public function register(){
         return view('login-logout.register');
     }

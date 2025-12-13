@@ -3,15 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order_table;
+use App\Models\Stock;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Orderdt;
 use Illuminate\Support\Facades\DB;
 use App\Models\Cartitem;
+use App\Models\Payment;
 
 class order_tableController extends Controller
 {
+        public function indexOrder(){
+            $order=DB::table('orderdts')
+            ->leftJoin('order_tables','order_tables.order_id','=','Orderdts.order_id')
+            ->leftJoin('payments','payments.order_id','=','order_tables.order_id')
+            ->select('orderdts.order_id','order_tables.fullname','order_tables.final_total','payments.status')
+            ->orderBy('order_tables.order_id','desc')
+            ->paginate(10);
+            return view('admin.indexOrder',compact('order'));
+        }
     protected function getOrCreateCartId()
     {
         $userId = Auth::id();
@@ -21,7 +32,6 @@ class order_tableController extends Controller
     public function pt(){
         return view('order_table.phuongthucthanhtoan');
     }
-
     public function thanhtoan(Request $request){
         DB::beginTransaction();
         try{
@@ -31,7 +41,15 @@ class order_tableController extends Controller
             if($items->isEmpty()){
                 return back()->with('error','gio hang rong ');
             }
-
+            foreach($items as $item){
+                $stock = Stock::where('product_id', $item->product_id)->lockForUpdate()->first();
+                if (!$stock || $stock->quantity < $item->quantity) {
+                DB::rollBack();
+                return back()->with('error',
+                    'Sản phẩm "' . $item->name_product . '" không đủ hàng'
+                );
+            }
+            }
             $order=Order_table::create([
                 'user_id'=>$userid,
                 'total_amount'=>$request->total_amount,
@@ -52,7 +70,17 @@ class order_tableController extends Controller
                 'quantity'=> $item->quantity,
                 'price'=> $item->price,
             ]);
+            Stock::where('product_id', $item->product_id)
+            ->decrement('quantity', $item->quantity);
             }
+                Payment::create([
+                    'order_id'=> $order->order_id,
+                    'user_id'=>$userid,
+                    'amount'=>$request->total_amount,
+                    'payment_method'=>$request->method_pay,
+                    'status'=>$request->method_pay == 'Bank Transfer'?'da thanh toan ': 'chua thanh toan',
+                ]);
+            
             Cartitem::where('cart_id',$cart_id)->delete();
             DB::commit();
             return redirect()->route('cartitems')->with('success','dat haang thanh cong');

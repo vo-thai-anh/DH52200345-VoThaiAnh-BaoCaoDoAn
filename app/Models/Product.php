@@ -18,7 +18,6 @@ class Product extends Model
         'description',
     ];
 
-    // Mối quan hệ: Một Product thuộc về một Category
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'cate_id');

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Termwind\Components\Raw;
 use App\Http\Kernel;
+use App\Models\Order_table;
+use App\Models\User;
 
 // hiển thị trang chủ
 Route::get('/', function () {
@@ -52,14 +54,13 @@ Route::middleware(['auth','auth.admin'])
     Route::get('/products/edit/{id}',       [productController::class, 'edit'])->name('products.edit');
     Route::put('/products/update/{id}',     [productController::class, 'update'])->name('products.update');
     Route::delete('/products/delete/{id}',  [productController::class, 'delete'])->name('products.delete');
-    Route::get('order_table',               [productController::class, 'indexOrder'])->name('products.indexOrder');
+    Route::get('/order_table',              [Order_tableController::class, 'indexOrder'])->name('products.indexOrder');
+    Route::get('/user',                     [UserController::class, 'indexUser'])->name('products.indexUser');
 });
 Route::get('/order_table/checkout',[order_tableController::class,'formthanhtoan'])
             ->name('formthanhtoan');
 Route::post('/order_table',[order_tableController::class,'thanhtoan'])
             ->name('thanhtoan');
-Route::get('/order_table/phuongthucthanhtoan',[order_tableController::class,'pt'])
-            ->name('phuongthuc');
 Route::get('/products/{id}',[productController::class,'show'])->name('detail');
 Route::get('/products',[productController::class,'search'])->name('home');
 

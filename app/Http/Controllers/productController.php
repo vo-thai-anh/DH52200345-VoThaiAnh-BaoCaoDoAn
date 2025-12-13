@@ -28,14 +28,6 @@ class productController extends Controller
 
         return view('admin.indexProduct', compact('products'));
     }
-        public function indexOrder(){
-            $order=DB::table('orderdts')
-            ->leftJoin('users','users.user_id','=','carts.user_id')
-            ->select('carts.*','users.fullname as name')
-            ->orderBy('carts.cart_id','desc')
-            ->paginate(10);
-            return view('admin.indexOrder',compact('order'));
-        }
 
     public function create()
     {
@@ -179,7 +171,7 @@ class productController extends Controller
             }
             $file->move(public_path('images'), $fileName);
         }
-        return redirect()->route('admin.products.index')->with('alert', [
+        return redirect()->route('admin.products.indexProduct')->with('alert', [
             'type' => 'success',
             'title' => 'Cập nhật thành công!',
             'message' => 'Sản phẩm đã được cập nhật.'
@@ -199,13 +191,11 @@ class productController extends Controller
         }
 
         try {
-            // Xóa tồn kho trước
             $product->stock()->delete();
 
-            // Xóa sản phẩm
             $product->delete();
 
-            return redirect()->route('admin.products.index')->with('alert', [
+            return redirect()->route('admin.products.indexProduct')->with('alert', [
                 'type'    => 'success',
                 'title'   => 'Xóa thành công!',
                 'message' => 'Sản phẩm và tồn kho đã được xóa.'
