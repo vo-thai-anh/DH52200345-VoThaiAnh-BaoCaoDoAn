@@ -1,0 +1,92 @@
+/* FORM WRAPPER */
+.logincss {
+    width: 380px;
+    background: #fff;
+    padding: 30px;
+    margin: 40px auto;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* TIÊU ĐỀ */
+.member {
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+/* INPUT GROUP */
+.email,
+.password {
+    position: relative;
+    margin-bottom: 22px;
+}
+
+/* INPUT */
+.input100 {
+    width: 100%;
+    padding: 12px 45px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.input100:focus {
+    border-color: #0d6efd;
+}
+
+/* ICON TRONG Ô INPUT */
+.symbol-input100 {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 18px;
+}
+
+/* HIỆU ỨNG VIỀN FOCUS */
+.focus-input100 {
+    display: none;
+}
+
+/* TEXT LỖI */
+.text-danger {
+    font-size: 13px;
+    color: red;
+    margin-top: -15px;
+    display: block;
+}
+
+/* BUTTON SUBMIT */
+.btn-submit {
+    margin-top: 10px;
+}
+
+.btn-submit button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
+}
+
+/* NÚT TRỞ VỀ */
+.btn-back {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn-back a {
+    font-size: 15px;
+    text-decoration: none;
+    color: #0d6efd;
+}
+
+.btn-back a:hover {
+    text-decoration: underline;
+}

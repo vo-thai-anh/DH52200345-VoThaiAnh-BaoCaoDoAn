@@ -1,0 +1,136 @@
+/* ================================================= */
+/* 1. PRODUCT DETAIL LAYOUT (Two-Column Structure)   */
+/* ================================================= */
+.product-detail {
+    padding: 2rem 0;
+    max-width: 1200px; /* Giới hạn chiều rộng trang */
+    margin: 0 auto;
+}
+
+.product-main-content {
+    display: flex;
+    gap: 30px; /* Khoảng cách giữa ảnh và chi tiết */
+    margin-bottom: 40px;
+}
+
+/* Ẩn hoặc xếp chồng trên thiết bị di động */
+@media (max-width: 992px) {
+    .product-main-content {
+        flex-direction: column;
+    }
+}
+
+/* ================================================= */
+/* 2. IMAGE GALLERY STYLES (Cột Ảnh)                */
+/* ================================================= */
+.product-gallery {
+    flex: 0 0 45%; /* Chiếm 45% chiều rộng */
+}
+
+/* Áp dụng styling cho khung ảnh chính */
+.product-image-wrapper.detail-image {
+    width: 100%;
+    border-radius: 8px; /* Bo góc mềm mại */
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Đổ bóng nhẹ */
+}
+.product-image-wrapper.detail-image img {
+    display: block;
+}
+
+/* ================================================= */
+/* 3. PRODUCT INFO STYLES (Cột Thông tin)          */
+/* ================================================= */
+.product-info {
+    flex: 1; /* Chiếm phần còn lại */
+    padding-top: 10px;
+}
+
+/* Tiêu đề sản phẩm trên trang chi tiết */
+.product-detail-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+/* Giá sản phẩm (lớn và nổi bật) */
+.product-detail-price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #cc0066; /* Màu hồng/đỏ nổi bật */
+    margin: 1rem 0 2rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+/* Mô tả ngắn/Thuộc tính */
+.product-description-short {
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+/* Nút mua hàng (Buy Button) */
+.btn-buy-now {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #6a0dad; /* Màu chủ đạo */
+    color: white;
+    border: none;
+    border-radius: 50px; /* Bo góc tròn */
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn-buy-now:hover {
+    background-color: #4b0082;
+    transform: translateY(-2px);
+}
+
+/* Phần chia sẻ */
+.product-share-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.btn-social {
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.btn-facebook {
+    background-color: #3b5998;
+}
+
+.btn-instagram {
+    background-color: #c13584;
+}
+
+/* ================================================= */
+/* 4. REUSE STYLES FROM GRID (Để đồng bộ hóa)       */
+/* ================================================= */
+
+/* Nếu bạn muốn áp dụng lại style của item trong grid cho danh sách liên quan */
+.product-title {
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.product-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #cc0066;
+    text-align: center;
+    margin-top: 5px;
+}
