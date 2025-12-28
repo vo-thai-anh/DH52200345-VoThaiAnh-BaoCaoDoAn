@@ -2,7 +2,6 @@
     .search-box {
         position: relative;
     }
-
     .search-btn {
         position: absolute;
         right: 0;

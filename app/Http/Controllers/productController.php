@@ -57,6 +57,8 @@ class productController extends Controller
                 $file = $request->file('main_image');
                 $extension = $file->getClientOriginalExtension();
                 $fileName = $product->product_id . '.' . $extension;
+                // $destinationPath = base_path('public_html/images');
+                // $file->move($destinationPath, $fileName); // trên hosting
                 $file->move(public_path('images'), $fileName);
             }
         $standarName = getStandardName($request->name);
@@ -89,6 +91,9 @@ class productController extends Controller
         }
 
         $products = Product::where('name', 'like', "%{$searchItem}%")
+            ->orWhereHas('category', function ($query) use ($searchItem) {
+            $query->where('name', 'like', "%{$searchItem}%");
+        })
         ->get();
 
         return view('products.search', [
