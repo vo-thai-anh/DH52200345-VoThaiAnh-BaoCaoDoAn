@@ -27,7 +27,6 @@ class productController extends Controller
 
         return view('admin.indexProduct', compact('products'));
     }
-
     public function create()
     {
         $categories = Category::all();
@@ -44,15 +43,12 @@ class productController extends Controller
             'description'     => 'nullable|string',
             'main_image'      => 'required|image|mimes:jpg|max:2048',
         ]);
-
-
         $product=Product::create([
             'category_id'    => $request->category_id,
             'name'           => $request->name,
             'price'          => $request->price,
             'description'    => $request->description,
         ]);
-
             if ($request->hasFile('main_image')) {
                 $file = $request->file('main_image');
                 $extension = $file->getClientOriginalExtension();
@@ -200,7 +196,6 @@ class productController extends Controller
     public function delete(string $id)
     {
         $product = Product::find($id);
-
         if (!$product) {
             return redirect()->back()->with('alert', [
                 'type'    => 'warning',
@@ -208,20 +203,15 @@ class productController extends Controller
                 'message' => 'Sản phẩm không tồn tại trong hệ thống.'
             ]);
         }
-
         try {
             $product->stock()->delete();
-
             $product->delete();
-
             return redirect()->route('admin.products.indexProduct')->with('alert', [
                 'type'    => 'success',
                 'title'   => 'Xóa thành công!',
                 'message' => 'Sản phẩm và tồn kho đã được xóa.'
             ]);
-
         } catch (Exception $e) {
-
             return redirect()->back()->with('alert', [
                 'type'    => 'error',
                 'title'   => 'Lỗi khi xóa!',
@@ -229,5 +219,4 @@ class productController extends Controller
             ]);
         }
     }
-
 }

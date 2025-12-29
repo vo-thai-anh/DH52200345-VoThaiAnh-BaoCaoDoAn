@@ -53,24 +53,16 @@ class order_tableController extends Controller
     {
         DB::beginTransaction();
         try {
-            // Xóa payment
             Payment::where('order_id', $id)->delete();
-
-            // Xóa chi tiết đơn hàng
             Orderdt::where('order_id', $id)->delete();
-
-            // Xóa đơn hàng
             Order_table::where('order_id', $id)->delete();
-
             DB::commit();
-
             return redirect()->back()->with('success', 'Xóa đơn hàng thành công');
         } catch (Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Không thể xóa đơn hàng');
         }
     }
-
 
     protected function getOrCreateCartId()
     {
@@ -85,7 +77,6 @@ class order_tableController extends Controller
             $userId = Auth::id();
             $cartId = $this->getOrCreateCartId();
             $items = Cartitem::where('cart_id', $cartId)->get();
-
             if ($items->isEmpty()) {
                 return back()->with('error', 'Giỏ hàng rỗng');
             }
@@ -136,29 +127,21 @@ class order_tableController extends Controller
                 'payment_method' => $request->method_pay,
                 'status' => 'unpaid',
             ]);
-
             Cartitem::where('cart_id', $cartId)->delete();
             DB::commit();
-
             if ($request->method_pay == 'Bank Transfer') {
                 return redirect()->route('payment.qrbank', $order->order_id);
             }
-
             return redirect()->route('cartitems')
                 ->with('success', 'Đặt hàng thành công');
-
         } catch (Exception $e) {
             DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
     }
-
-
     public function formthanhtoan()
     {
-        //lấy user id
         $cart_id=$this->getOrCreateCartId();
-        // biến giỏ hàng truy vấn bảng cartitems trong databse
         $productsincart= DB::table('cartitems')
         ->join('products','cartitems.product_id','=','products.product_id')
         ->where('cartitems.cart_id',$cart_id)
@@ -173,8 +156,7 @@ class order_tableController extends Controller
     foreach ($productsincart as $item) {
         $subTotalItem += $item->quantity * $item->price;
     }
-
-    $shippingFee = random_int(0,50)*1000; // Phí vận chuyển cố định
+    $shippingFee = random_int(0,50)*1000;
     $fintal_total = $subTotalItem + $shippingFee;
         return view('order_table.checkout',[
             'final_total'=>$fintal_total,
@@ -183,9 +165,4 @@ class order_tableController extends Controller
             'shippingFee' => $shippingFee,
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    
 }

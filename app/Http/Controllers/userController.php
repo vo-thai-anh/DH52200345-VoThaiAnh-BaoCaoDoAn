@@ -149,7 +149,6 @@ class userController extends Controller
                 'message' => 'User không tồn tại.'
             ]);
         }
-
         $validated = $request->validate([
             'username'        => 'nullable|string|max:255',
             'email'           => 'nullable|email|unique:users,email,' . $user->user_id . ',user_id',
@@ -167,7 +166,6 @@ class userController extends Controller
             'address'       => $validated['address'] ?? $user->address,
             'role'          => $validated['role'] ?? $user->role,
         ]);
-
         if ($user->order_table) {
             $user->order_table->update([
                 'fullname'  => $validated['fullname'] ?? $user->order_table->fullname,
@@ -175,7 +173,6 @@ class userController extends Controller
                 'address'   => $validated['address'] ?? $user->order_table->address,
             ]);
         }
-
         return redirect()->route('admin.user.indexUser')->with('alert', [
             'type' => 'success',
             'title' => 'Cập nhật thành công!',

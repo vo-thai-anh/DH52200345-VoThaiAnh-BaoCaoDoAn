@@ -123,12 +123,9 @@ class orderdtController extends Controller
     {
         DB::beginTransaction();
         try {
-
             Orderdt::where('orderdt_id', $id)->delete();
-
             DB::commit();
             return back()->with('success', 'Xóa hóa đơn thành công');
-
         } catch (Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Không thể xóa hóa đơn');
